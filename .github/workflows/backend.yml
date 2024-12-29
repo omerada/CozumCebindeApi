@@ -3,7 +3,7 @@ name: Backend CI/CD
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   build-and-deploy:
@@ -16,7 +16,7 @@ jobs:
       - name: Set up JDK
         uses: actions/setup-java@v3
         with:
-          java-version: '17'
+          java-version: '18'
 
       - name: Build with Maven
         run: mvn clean package -DskipTests
@@ -24,9 +24,9 @@ jobs:
       - name: Deploy to Server
         uses: appleboy/ssh-action@v0.1.9
         with:
-          host: ${{ secrets.185.255.4.37 }}
-          username: ${{ secrets.root }}
-          password: ${{ secrets.13579adA+ }}
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SERVER_USER }}
+          password: ${{ secrets.SERVER_PASSWORD }}
           script: |
             docker stop backend || true
             docker rm backend || true
