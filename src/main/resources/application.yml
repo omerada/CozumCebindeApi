@@ -1,0 +1,53 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+  compression:
+    enabled: true
+    mime-types: text/html,text/plain,text/css,application/javascript,application/json
+    min-response-size: 1024
+
+spring:
+  application:
+    name: CozumCebinde
+  profiles:
+    active: dev
+  main:
+    web-application-type: servlet
+    allow-bean-definition-overriding: true
+    allow-circular-references: true
+
+  # PostgreSQL Bağlantı Ayarları
+  datasource:
+    url: jdbc:postgresql://localhost:5432/cozumcebinde
+    username: cozumcebinderoot
+    password: Siydb_1999
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      connection-timeout: 30000
+      maximum-pool-size: 10
+      minimum-idle: 5
+
+  # JPA ve Hibernate Ayarları
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+      show-sql: true
+    properties:
+      hibernate:
+        show_sql: true
+        use_sql_comments: true
+        format_sql: true
+        jdbc.lob.non_contextual_creation: true
+
+  # Servlet Ayarları
+  servlet:
+    multipart:
+      max-file-size: 25MB
+      max-request-size: 25MB
+
+  # Jackson Ayarları
+  jackson:
+    serialization:
+      FAIL_ON_EMPTY_BEANS: false
